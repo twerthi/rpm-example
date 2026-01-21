@@ -33,4 +33,4 @@ jobs:
         project: 'RPM Example'
         release_number: ${{ env.PACKAGE_VERSION }}
         environments: |
-          'Development'
+          Development
