@@ -1,4 +1,4 @@
-name: .NET Core 
+name: Example build
 
 on:
   workflow_dispatch:
