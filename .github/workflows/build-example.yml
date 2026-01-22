@@ -34,6 +34,6 @@ jobs:
       with:
         project: 'RPM Example'
 #        release_number: ${{ env.PACKAGE_VERSION }}
-        release_number: ${{ needs.create_a_release_in_octopus_deploy.outputs.release_number }}
+        release_number: ${{ steps.Create_a_release_in_Octopus_Deploy.outputs.release_number }}
         environments: |
           Development
