@@ -21,7 +21,9 @@ jobs:
         OCTOPUS_SPACE: 'Shawn Sesna'
       with:
         project: 'RPM Example'
-        release_number: ${{ env.PACKAGE_VERSION }}
+#        release_number: ${{ env.PACKAGE_VERSION }}
+        custom_fields: |
+          RPM.Package.Version:${{ env.PACKAGE_VERSION }}
 
     - name: Deploy a release in Octopus Deploy 🐙
       uses: OctopusDeploy/deploy-release-action@v4
@@ -31,6 +33,7 @@ jobs:
         OCTOPUS_SPACE: 'Shawn Sesna'
       with:
         project: 'RPM Example'
-        release_number: ${{ env.PACKAGE_VERSION }}
+#        release_number: ${{ env.PACKAGE_VERSION }}
+        release_number: ${{ fromJson(steps.create_a_release_in_octopus_deploy.outputs.release_number) }}
         environments: |
           Development
