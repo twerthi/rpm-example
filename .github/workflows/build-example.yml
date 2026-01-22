@@ -13,7 +13,7 @@ jobs:
     - name: Set Version
       run: echo "PACKAGE_VERSION=25" >> $GITHUB_ENV
 
-    - name: Create a release in Octopus Deploy 🐙
+    - name: Create a release in Octopus Deploy
       uses: OctopusDeploy/create-release-action@v4
       env:
         OCTOPUS_API_KEY: ${{ secrets.API_KEY  }}
