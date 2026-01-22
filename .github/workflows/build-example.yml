@@ -14,6 +14,7 @@ jobs:
       run: echo "PACKAGE_VERSION=25" >> $GITHUB_ENV
 
     - name: Create a release in Octopus Deploy
+      id: create_a_release_in_octopus_deploy
       uses: OctopusDeploy/create-release-action@v4
       env:
         OCTOPUS_API_KEY: ${{ secrets.API_KEY  }}
@@ -34,6 +35,6 @@ jobs:
       with:
         project: 'RPM Example'
 #        release_number: ${{ env.PACKAGE_VERSION }}
-        release_number: ${{ steps.Create_a_release_in_Octopus_Deploy.outputs.release_number }}
+        release_number: ${{ steps.create_a_release_in_octopus_deploy.outputs.release_number }}
         environments: |
           Development
