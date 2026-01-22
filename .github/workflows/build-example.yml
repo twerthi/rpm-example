@@ -13,7 +13,7 @@ jobs:
     - name: Set Version
       run: echo "PACKAGE_VERSION=25" >> $GITHUB_ENV
 
-    - name: Create a release in Octopus Deploy
+    - name: Create a release in Octopus Deploy 🐙
       id: create_a_release_in_octopus_deploy
       uses: OctopusDeploy/create-release-action@v4
       env:
@@ -27,6 +27,7 @@ jobs:
           RPM.Package.Version:${{ env.PACKAGE_VERSION }}
 
     - name: Deploy a release in Octopus Deploy 🐙
+      id: deploy_a_release_in_octopus_deploy
       uses: OctopusDeploy/deploy-release-action@v4
       env:
         OCTOPUS_API_KEY: ${{ secrets.API_KEY  }}
@@ -38,3 +39,12 @@ jobs:
         release_number: ${{ steps.create_a_release_in_octopus_deploy.outputs.release_number }}
         environments: |
           Development
+
+    - name: Await task in Octopus Deploy 🐙
+      uses: OctopusDeploy/await-task-action@v4
+      env:
+        OCTOPUS_API_KEY: ${{ secrets.API_KEY  }}
+        OCTOPUS_URL: ${{ secrets.OCTOPUS_URL }}
+        OCTOPUS_SPACE: 'Shawn Sesna'
+      with:
+        server_task_id: ${{ fromJson(steps.deploy_a_release_in_octopus_deploy.outputs.server_tasks)[0].serverTaskId }}
